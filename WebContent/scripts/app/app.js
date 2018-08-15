@@ -1,1 +1,1 @@
-var app = angular.module("amFlights", ['ngAnimate', 'ui.router', 'ngMaterial', window.ngNumberPicker]);
+var app = angular.module("amFlights", ['ngAnimate', 'ui.router', 'ngMaterial']);

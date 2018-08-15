@@ -13,21 +13,30 @@ app.controller("bookingController", function ($scope,$http) {
 		});
 	}
 
-	function getAvailabeSeatCountForType() {
+	$scope.getAvailabeSeatCountForType = function() {
 
-		$http.get("SeatCount",booking).then(function (response) {
+		var Indata = { 'flight_id':$scope.booking.selectedFlight.flight_id };
+
+		$http.get("Seat?flight_id="+ $scope.booking.selectedFlight.flight_id).then(function (response) {
 			//First function handles success
-			$scope.flights = response.data;
+			$scope.seatCountMax = response.data;
+			$scope.seatCount = response.data;
 
 		}, function (response) {
-			//Second function handles error
+						//Second function handles error
 			$scope.content = "Something went wrong";
 		});
 	}
 
-	$scope.input = {
-		num: 3
-	};
+	$scope.incrementSeatCount = function() {
+		$scope.seatCount++;
+	}
+
+	$scope.decrementSeatCount = function() {
+		$scope.seatCount--;
+	}
+
+
 
 	$scope.booking = {};
 

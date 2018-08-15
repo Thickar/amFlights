@@ -21,8 +21,7 @@
     <param-name>dbURL</param-name>
     <param-value>jdbc:mysql://localhost/amFlights</param-value>
   </context-param>
-  
-   <filter>
+  <filter>
     <filter-name>AuthenticationFilter</filter-name>
     <filter-class>com.amFlights.filter.AuthenticationFilter</filter-class>
   </filter>

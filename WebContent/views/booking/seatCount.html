@@ -1,6 +1,19 @@
 <!-- form-payment.html -->
-<div class="form-group">
-    <h-number ng-model="booking.seatCount" value="input.num" singular="seat" plural="seats" min="1" max="10" step="1"></h-number>
+<div class="form-group" ng-init="getAvailabeSeatCountForType()">
+
+     <div class="input-group">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-danger btn-number" ng-click="seatCount = (seatCount > 1)? seatCount-1:seatCount">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+        </span>
+        <input type="text" class="form-control input-number" ng-model="seatCount">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-success btn-number" ng-click="seatCount=(seatCount < seatCountMax) ? seatCount+1 : seatCount">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </span>
+    </div>
 </div>
 
 <div class="form-group row">
