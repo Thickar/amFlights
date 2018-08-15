@@ -1,29 +1,30 @@
 <link rel="stylesheet" href="styles/login.css" />
 
-    <div class="container" id="LoginForm" ng-init="$root.showNavBar=false">
-        <div class="login-form">
-            <div class="main-div">
-                <div class="panel">
-                    <h2>Login</h2>
-                    <p>Please enter your email and password</p>
-                </div>
-                <form id="Login">
-
-                    <div class="form-group">
-
-
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-
-                </form>
+<div class="container" id="LoginForm" ng-init="$root.showNavBar=false">
+    <div class="login-form">
+        <div class="main-div">
+            <div class="panel">
+                <h2>Login</h2>
+                <p>Please enter your email and password</p>
             </div>
-        </div> 
-    </div></div>
+            <form id="Login" ng-submit="submitLogin()" role="form">
+
+                <div class="form-group">
+
+
+                    <input type="email" class="form-control" ng-model="input.email" placeholder="Email Address">
+
+                </div>
+
+                <div class="form-group">
+
+                    <input type="password" class="form-control" ng-model="input.password" placeholder="Password">
+
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</div>

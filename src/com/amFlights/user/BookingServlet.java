@@ -1,4 +1,4 @@
-package com.amFlights;
+package com.amFlights.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;

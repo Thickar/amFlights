@@ -1,4 +1,4 @@
-package com.amFlights;
+package com.amFlights.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.amFlights.LoginServlet;
 import com.amFlights.Model.Flight;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

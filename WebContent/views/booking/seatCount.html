@@ -1,8 +1,17 @@
 <!-- form-payment.html -->
-<div class="text-center">
-    <span class="glyphicon glyphicon-heart"></span>
-    <h3>Thanks For Your Money!</h3>
+<div class="form-group">
+    <h-number ng-model="booking.seatCount" value="input.num" singular="seat" plural="seats" min="1" max="10" step="1"></h-number>
+</div>
 
-    <button type="submit" class="btn btn-danger">Submit</button>
+<div class="form-group row">
+    <div class="col-xs-6 col-xs-offset-3">
+        <button type="submit" class="btn btn-block btn-info" value="submit"> Submit
+            <span class="glyphicon 
+                glyphicon glyphicon-ok-sign"></span>
+        </button>
+
+    </div>
+</div>
+
 </div>
 </div>

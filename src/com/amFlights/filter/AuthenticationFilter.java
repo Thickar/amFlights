@@ -65,11 +65,10 @@ public class AuthenticationFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		
-		String uri = req.getRequestURI();
+		String uri = req.getQueryString();
 		logger.info("Requested Resource::"+uri);
 		
 		HttpSession session = req.getSession(false);
-		
 		if(session == null && !( uri.endsWith("Login") || uri.endsWith("Register"))){
 			logger.error("Unauthorized access request");
 			res.sendError(401, "Unauthorized");

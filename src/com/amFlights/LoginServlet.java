@@ -1,5 +1,6 @@
 package com.amFlights;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -20,6 +21,9 @@ import org.apache.log4j.Logger;
 import com.amFlights.Model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 /**
  * Servlet implementation class LoginServlet
@@ -52,30 +56,33 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+        JsonParser parser = new JsonParser();
+        BufferedReader reader = request.getReader();
+
+        JsonObject jsonObject = (JsonObject) parser.parse(reader);
 		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
 		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String username = jsonObject.get("email").getAsString();
+		String password = jsonObject.get("password").getAsString();
 		String errorMsg = null;
 		if(username == null || username.equals("")){
 			errorMsg ="User Email can't be null or empty";
 		}
 		if(password == null || password.equals("")){
-			errorMsg = "Password can't be null or empty";
+			errorMsg += "Password can't be null or empty";
 		}
 		
 		if(errorMsg != null){
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-			rd.include(request, response);
+			response.sendError(HttpServletResponse.SC_NOT_FOUND,errorMsg);
+//			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+//			rd.include(request, response);
 		}else{
 		
 		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = con.prepareStatement("select user_type,username from user where username=? and password=? limit 1");
+			ps = con.prepareStatement("select user_type,username,email from user where email= ? and password= ? limit 1");
 			ps.setString(1, username);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
@@ -90,7 +97,7 @@ public class LoginServlet extends HttpServlet {
 			}else{
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 				logger.error("User not found with email="+username);
-				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				response.sendError(HttpServletResponse.SC_NOT_FOUND,"Exceuted ");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

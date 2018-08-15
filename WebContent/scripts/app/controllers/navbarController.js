@@ -1,12 +1,10 @@
-﻿app.controller("navbarController", function ($scope,$rootScope) {
+﻿app.controller("navbarController", function ($scope, $rootScope) {
 
-$rootScope.showNavBar =  true;
+      $rootScope.showNavBar = true;
 
-$scope.menuItems =[
-        {link: "booking",name:"Book tickets" },
-        {link: "Cancel",name:"Cancel tickets" },
-        {link: "login",name:"login tickets" },
-        {link: "summary",name:"view summary" }]
-
-
-  });
+      $scope.menuItems = [
+            { link: "booking", name: "Book tickets" },
+            { link: "cancelBooking", name: "Cancel tickets" },
+            { link: "login", name: "Login tickets" },
+            { link: "summary", name: "View summary" }]
+});

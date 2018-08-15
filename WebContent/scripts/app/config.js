@@ -1,20 +1,20 @@
-﻿app.config(function($stateProvider, $urlRouterProvider) {
+﻿app.config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state('login', {
-            url: '/login',
-            templateUrl: "views/login.html",
-         controller : "loginController"
-        })
+        url: '/login',
+        templateUrl: "views/login.html",
+        controller: "loginController"
+    })
 
-         .state('welcome', {
+        .state('welcome', {
             url: '/welcome',
             templateUrl: "views/welcome.html",
-              controller : "navbarController"
+            controller: "navbarController"
         })
-         .state('booking', {
+        .state('booking', {
             url: '/booking',
             templateUrl: "views/booking.html",
-              controller : "bookingController"
+            controller: "bookingController"
         })
         .state('booking.chooseFlight', {
             url: '/chooseFlight',
@@ -23,7 +23,7 @@
         .state('booking.seatType', {
             url: '/seatType',
             templateUrl: "views/booking/seatType.html"
-        }) 
+        })
 
         .state('booking.mealsRequired', {
             url: '/mealsRequired',
@@ -33,6 +33,12 @@
         .state('booking.seatCount', {
             url: '/seatCount',
             templateUrl: "views/booking/seatCount.html"
+        })
+
+        .state('cancelBooking', {
+            url: '/cancelBooking',
+            templateUrl: "views/welcome.html",
+            controller: "navbarController"
         });
 
     // catch all route

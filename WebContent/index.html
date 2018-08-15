@@ -2,54 +2,44 @@
 <html>
 
 <head>
-<title>Am Flights</title>
-<meta charset="UTF-8" />
+	<title>Am Flights</title>
+	<meta charset="UTF-8" />
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-messages.min.js"></script>
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
 
-<script
-	src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.js"></script>
+	<script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.js"></script>
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.19/angular-ui-router.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.19/angular-ui-router.min.js"></script>
 
 
-<link rel="stylesheet"
-	href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.css" />
-<link rel="stylesheet"
-	href="https://material.angularjs.org/1.1.10/docs.css" />
+	<link rel="stylesheet" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.css" />
+	<link rel="stylesheet" href="https://material.angularjs.org/1.1.10/docs.css" />
 
-<script src="scripts/app/app.js"></script>
-<script src="scripts/app/config.js"></script>
-<script src="scripts/app/controllers/navbarController.js"></script>
-<script src="scripts/app/controllers/loginController.js"></script>
-<script src="scripts/app/controllers/bookingController.js"></script>
+	<script src="scripts/app/angular-number-picker.js"></script>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="scripts/app/app.js"></script>
+	<script src="scripts/app/config.js"></script>
+	<script src="scripts/app/controllers/navbarController.js"></script>
+	<script src="scripts/app/controllers/loginController.js"></script>
+	<script src="scripts/app/controllers/bookingController.js"></script>
+
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body ng-app="amFlights">
@@ -61,7 +51,8 @@
 					<a class="navbar-brand" href="#">Home</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li ng-repeat="menu in menuItems"><a ui-sref="{{menu.link}}">{{menu.name}}</a>
+					<li ng-repeat="menu in menuItems">
+						<a ui-sref="{{menu.link}}"> {{menu.name}} </a>
 					</li>
 				</ul>
 			</div>
