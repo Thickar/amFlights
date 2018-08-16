@@ -55,8 +55,8 @@ public class SeatServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
 
-		String flight = request.getParameter("flight_id");
 		int flight_id = Integer.valueOf(request.getParameter("flight_id"));
+		int seat_type = Integer.valueOf(request.getParameter("seat_type"));
 		String errorMsg = null;
 		if (flight_id < 1) {
 			errorMsg = "flight id can't be 0 or empty";
@@ -79,8 +79,9 @@ public class SeatServlet extends HttpServlet {
 			try {
 
 				ps = con.prepareStatement(
-						"Select count(seat_id) as seatCount from seat where seat_id not in (SELECT s.seat_id from booking b inner join seat_booked s on b.booking_id = s.booking_id and b.is_cancelled = false where b.flight_id = ?)");
-				ps.setInt(1, flight_id);
+						"Select count(seat_id) as seatCount from seat where seat_type = ? and seat_id not in (SELECT s.seat_id from booking b inner join seat_booked s on b.booking_id = s.booking_id and b.is_cancelled = false where b.flight_id = ?)");
+				ps.setInt(1, seat_type);
+				ps.setInt(2, flight_id);
 				rs = ps.executeQuery();
 
 				if(rs.next())

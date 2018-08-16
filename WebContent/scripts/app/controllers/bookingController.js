@@ -15,9 +15,9 @@ app.controller("bookingController", function ($scope,$http) {
 
 	$scope.getAvailabeSeatCountForType = function() {
 
-		var Indata = { 'flight_id':$scope.booking.selectedFlight.flight_id };
+		var Indata = { 'flight_id':$scope.booking.selectedFlight.flight_id , 'seatType' : $scope.booking.seatType };
 
-		$http.get("Seat?flight_id="+ $scope.booking.selectedFlight.flight_id).then(function (response) {
+		$http.get("Seat?flight_id="+ $scope.booking.selectedFlight.flight_id +"&seat_type=" + $scope.booking.seatType).then(function (response) {
 			//First function handles success
 			$scope.seatCountMax = response.data;
 			$scope.seatCount = response.data;
