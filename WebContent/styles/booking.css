@@ -35,7 +35,8 @@ body {
     background-size: cover;
     width: 100%;
     height: 100%;
-    color:white
+    color:white;
+    overflow-x: hidden
 }
 /*md-radio-button .md-off md-radio-button.md-checked.my-class .md-off{
     border-color: blue

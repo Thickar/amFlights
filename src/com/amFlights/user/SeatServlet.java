@@ -86,8 +86,13 @@ public class SeatServlet extends HttpServlet {
 
 				if(rs.next())
 				{
-					String seatCount = rs.getString("seatCount");
-					out.println(seatCount);
+					int seatCount = rs.getInt("seatCount");
+					if(seatCount > 0)
+					{
+						out.println(seatCount);
+					}else {
+						response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,"Seats fulll");
+					}
 				}
 				
 /**				List<Seat> seatList = new ArrayList<Seat>();

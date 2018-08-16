@@ -1,1 +1,1 @@
-var app = angular.module("amFlights", ['ngAnimate', 'ui.router', 'ngMaterial']);
+var app = angular.module("amFlights", ['ngAnimate', 'ui.router', 'ngMaterial','ngMessages']);
