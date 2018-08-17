@@ -30,7 +30,7 @@ import com.google.gson.GsonBuilder;
 @WebServlet("/Flight")
 public class FlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger logger = Logger.getLogger(LoginServlet.class);
+	static Logger logger = Logger.getLogger(FlightServlet.class);
 	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	/**

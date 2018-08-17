@@ -1,7 +1,5 @@
 package com.amFlights.user;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,15 +8,12 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import com.amFlights.Model.Flight;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.*;
 import java.util.*;
@@ -26,7 +21,34 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
 
-import com.amFlights.Model.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+
+import com.amFlights.LoginServlet;
+import com.amFlights.Model.Booking;
+import com.amFlights.Model.User;
+import com.amFlights.Util.BookingUtil;
+import com.amFlights.Util.SeatUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 /**
  * Servlet implementation class Booking
@@ -34,6 +56,8 @@ import com.amFlights.Model.*;
 @WebServlet(asyncSupported = true, urlPatterns = { "/Booking" })
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	static Logger logger = Logger.getLogger(BookingServlet.class);
+	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	/**
 	 * Default constructor.
@@ -49,7 +73,7 @@ public class BookingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
@@ -59,7 +83,57 @@ public class BookingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		JsonParser parser = new JsonParser();
+		BufferedReader reader = request.getReader();
+
+		JsonObject jsonObject = (JsonObject) parser.parse(reader);
+		response.setContentType("application/json");
+
+		int seatCount = jsonObject.get("seatCount").getAsInt();
+		int flightId = jsonObject.get("flightId").getAsInt();
+		int seatType = jsonObject.get("seatType").getAsInt();
+		Boolean isMealRequired = jsonObject.get("isMealRequired").getAsBoolean();
+
+		String errorMsg = null;
+		if (seatCount < 1) {
+			errorMsg += "seat count must be greater than zero";
+		}
+		if (flightId < 1) {
+			errorMsg += "flightId must be greater than zero";
+		}
+
+		if (errorMsg != null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, errorMsg);
+//			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+//			rd.include(request, response);
+		} else {
+
+			Booking booking = new Booking();
+			booking.setFlight_id(flightId);
+			booking.setIs_meals_required(isMealRequired);
+
+			// Set response content type
+			response.setContentType("application/text");
+			PrintWriter out = response.getWriter();
+
+			Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+
+			try {
+
+				int availableSeatCount = new SeatUtil(con).getAvailableSeatCount(flightId, seatType);
+				if (availableSeatCount >= seatCount) {
+                        BookingUtil bookingUtil = new BookingUtil(con);
+                        booking.setBooking_charges(bookingUtil.calculateBookingCost(flightId, seatType, seatCount));
+                        
+				} else {
+					response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, "Seats full");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
 	}
 
 	/**

@@ -37,20 +37,24 @@ app.controller("bookingController", function ($scope,$state, $http, $mdToast) {
 		});
 	}
 
-	$scope.incrementSeatCount = function () {
-		$scope.seatCount++;
-	}
-
-	$scope.decrementSeatCount = function () {
-		$scope.seatCount--;
-	}
-
-
 
 	$scope.booking = {};
 
 	$scope.bookTickets = function () {
 		alert($scope.booking);
+		/* while compiling form , angular created this object*/
+		var Indata = { 'seatCount': $scope.booking.seatCount, 'flightId': $scope.booking.selectedFlight.flight_id, 'seatType': $scope.booking.seatType, 'isMealRequired': $scope.booking.isMealRequired };
+
+		/* post to server*/
+		$http.post("Booking", Indata).then(function (response) {
+			//First function handles success
+			$scope.content = response.data;
+			$state.go('booking.chooseFlight');
+
+		}, function (response) {
+			//Second function handles error
+			$scope.content = "Something went wrong";
+		});
 	};
 
 	function init() {
