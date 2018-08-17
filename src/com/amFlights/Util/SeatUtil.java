@@ -25,8 +25,8 @@ public class SeatUtil {
 
 			ps = con.prepareStatement(
 					"Select count(seat_id) as seatCount from seat where seat_type = ? and seat_id not in (SELECT s.seat_id from booking b inner join seat_booked s on b.booking_id = s.booking_id and b.is_cancelled = false where b.flight_id = ?)");
-			ps.setInt(1, flightId);
-			ps.setInt(2, seatType);
+			ps.setInt(1, seatType);
+			ps.setInt(2, flightId);
 			rs = ps.executeQuery();
 
 			if(rs.next())
