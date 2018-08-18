@@ -108,10 +108,6 @@ public class BookingServlet extends HttpServlet {
 //			rd.include(request, response);
 		} else {
 
-			Booking booking = new Booking();
-			booking.setFlight_id(flightId);
-			booking.setIs_meals_required(isMealRequired);
-
 			// Set response content type
 			response.setContentType("application/text");
 			PrintWriter out = response.getWriter();
@@ -121,10 +117,8 @@ public class BookingServlet extends HttpServlet {
 			try {
 
 				int availableSeatCount = new SeatUtil(con).getAvailableSeatCount(flightId, seatType);
-				if (availableSeatCount >= seatCount) {
-                        BookingUtil bookingUtil = new BookingUtil(con);
-                        booking.setBooking_charges(bookingUtil.calculateBookingCost(flightId, seatType, seatCount));
-                        
+				if (availableSeatCount >= seatCount && new BookingUtil(con).bookTickets(flightId, seatType, seatCount, isMealRequired)) {					
+                        response.setStatus(HttpServletResponse.SC_OK);
 				} else {
 					response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, "Seats full");
 				}

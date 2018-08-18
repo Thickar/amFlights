@@ -3,13 +3,13 @@
 
      <div class="input-group">
         <span class="input-group-btn">
-            <button type="button" class="btn btn-danger btn-number" ng-click="seatCount = (seatCount > 1)? seatCount-1:seatCount">
+            <button type="button" class="btn btn-danger btn-number" ng-click="booking.seatCount = (booking.seatCount > 1)? booking.seatCount-1:booking.seatCount">
               <span class="glyphicon glyphicon-minus"></span>
             </button>
         </span>
-        <input type="text" class="form-control input-number" ng-model="seatCount">
+        <input type="text" class="form-control input-number" ng-model="booking.seatCount">
         <span class="input-group-btn">
-            <button type="button" class="btn btn-success btn-number" ng-click="seatCount=(seatCount < seatCountMax) ? seatCount+1 : seatCount">
+            <button type="button" class="btn btn-success btn-number" ng-click="booking.seatCount=(booking.seatCount < seatCountMax) ? booking.seatCount+1 : booking.seatCount">
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
         </span>

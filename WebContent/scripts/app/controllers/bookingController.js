@@ -15,12 +15,10 @@ app.controller("bookingController", function ($scope,$state, $http, $mdToast) {
 
 	$scope.getAvailabeSeatCountForType = function () {
 
-		var Indata = { 'flight_id': $scope.booking.selectedFlight.flight_id, 'seatType': $scope.booking.seatType };
-
 		$http.get("Seat?flight_id=" + $scope.booking.selectedFlight.flight_id + "&seat_type=" + $scope.booking.seatType).then(function (response) {
 			//First function handles success
 			$scope.seatCountMax = response.data;
-			$scope.seatCount = response.data;
+			$scope.booking.seatCount = response.data;
 
 		}, function (response) {
 			var errorMessage = 'Something went wrong';
@@ -41,15 +39,13 @@ app.controller("bookingController", function ($scope,$state, $http, $mdToast) {
 	$scope.booking = {};
 
 	$scope.bookTickets = function () {
-		alert($scope.booking);
 		/* while compiling form , angular created this object*/
-		var Indata = { 'seatCount': $scope.booking.seatCount, 'flightId': $scope.booking.selectedFlight.flight_id, 'seatType': $scope.booking.seatType, 'isMealRequired': $scope.booking.isMealRequired };
+		var Indata = { 'seatCount': $scope.booking.seatCount, 'flightId': $scope.booking.selectedFlight.flight_id, 'seatType': $scope.booking.seatType,'seatCount' : $scope.booking.seatCount , 'isMealRequired': $scope.booking.isMealRequired };
 
 		/* post to server*/
 		$http.post("Booking", Indata).then(function (response) {
 			//First function handles success
-			$scope.content = response.data;
-			$state.go('booking.chooseFlight');
+			$state.go('welcome');
 
 		}, function (response) {
 			//Second function handles error
@@ -59,6 +55,7 @@ app.controller("bookingController", function ($scope,$state, $http, $mdToast) {
 
 	function init() {
 		getFlights();
+		$state.go("booking.chooseFlight");
 		// $scope.booking.selectedFlight = "test";
 	}
 	init();

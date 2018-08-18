@@ -24,9 +24,8 @@ public class BookingUtil {
 		super();
 		this.con = con;
 	}
-	
-	public int calculateBookingCost(int flight_id, int seat_type,int seat_count) throws Exception
-	{
+
+	public int calculateBookingCost(int flight_id, int seat_type, int seat_count) throws Exception {
 		return seat_count * getSeatPrice(flight_id, seat_type);
 	}
 
@@ -56,9 +55,39 @@ public class BookingUtil {
 				ps.close();
 			} catch (SQLException e) {
 				throw new ServletException("SQLException in closing PreparedStatement or ResultSet");
-				
+
 			}
 
 		}
 	}
+
+	public Boolean bookTickets(int flight_id, int seat_type, int seat_count, Boolean isMealRequired) throws Exception {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement("CALL booktickets(?,?,?,?)");
+			ps.setInt(1, flight_id);
+			ps.setInt(2, seat_type);
+			ps.setInt(3, seat_count);
+			ps.setInt(4, isMealRequired ? 1 : 0);
+
+			rs = ps.executeQuery();
+
+			return rs.next();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ServletException("DB Connection problem.");
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				throw new ServletException("SQLException in closing PreparedStatement or ResultSet");
+
+			}
+
+		}
+	}
+
 }
