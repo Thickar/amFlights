@@ -1,4 +1,4 @@
-package com.amFlights.Model;
+package com.amFlights.model;
 
 public class Seat {
 	private int seat_id;

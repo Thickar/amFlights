@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebListener;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.xml.DOMConfigurator;
 
-import com.amFlights.Util.DBConnectionManager;
+import com.amFlights.util.DBConnectionManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

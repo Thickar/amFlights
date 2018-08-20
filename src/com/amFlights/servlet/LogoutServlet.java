@@ -1,4 +1,4 @@
-package com.amFlights;
+package com.amFlights.servlet;
 
 import java.io.IOException;
 

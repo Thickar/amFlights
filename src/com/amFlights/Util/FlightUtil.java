@@ -1,4 +1,4 @@
-package com.amFlights.Util;
+package com.amFlights.util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import com.amFlights.Model.Flight;
+import com.amFlights.model.Flight;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

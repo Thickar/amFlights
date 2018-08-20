@@ -1,5 +1,6 @@
-package com.amFlights.user;
+package com.amFlights.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -19,25 +20,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.amFlights.LoginServlet;
-import com.amFlights.Model.Flight;
-import com.amFlights.Util.FlightUtil;
+import com.amFlights.model.Flight;
+import com.amFlights.model.Seat;
+import com.amFlights.util.SeatUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
- * Servlet implementation class Flight
+ * Servlet implementation class SeatServlet
  */
-@WebServlet("/Flight")
-public class FlightServlet extends HttpServlet {
+@WebServlet(asyncSupported = true, name = "Seat", urlPatterns = { "/Seat" })
+public class SeatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static Logger logger = Logger.getLogger(FlightServlet.class);
+
+	static Logger logger = Logger.getLogger(SeatServlet.class);
 	Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FlightServlet() {
+	public SeatServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -49,25 +53,38 @@ public class FlightServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// Set response content type
 		response.setContentType("application/json");
-		PrintWriter out = response.getWriter();
 
-		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
-
-		try {
-			FlightUtil flightUtil = new FlightUtil(con);
-			List<Flight> flightList = flightUtil.getFlights();
-
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-			out.print(gson.toJson(flightList));
-			out.flush();
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		int flight_id = Integer.valueOf(request.getParameter("flight_id"));
+		int seat_type = Integer.valueOf(request.getParameter("seat_type"));
+		String errorMsg = null;
+		if (flight_id < 1) {
+			errorMsg = "flight id can't be 0 or empty";
 		}
-		
+		if (errorMsg != null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND, errorMsg);
+		} else {
+
+			// Set response content type
+			response.setContentType("application/text");
+			PrintWriter out = response.getWriter();
+
+			Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+
+			try {
+ 
+				int seatCount = new SeatUtil(con).getAvailableSeatCount(flight_id, seat_type);
+					if(seatCount > 0)
+					{
+						out.print(seatCount);
+					}else {
+						response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,"Seats fulll");
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	/**

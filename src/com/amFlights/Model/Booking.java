@@ -1,4 +1,4 @@
-package com.amFlights.Model;
+package com.amFlights.model;
 
 public class Booking {
 	private int booking_id;

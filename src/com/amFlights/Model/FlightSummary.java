@@ -1,4 +1,4 @@
-package com.amFlights.Model;
+package com.amFlights.model;
 
 import java.util.List;
 

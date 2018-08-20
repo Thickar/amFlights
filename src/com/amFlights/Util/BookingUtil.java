@@ -1,4 +1,4 @@
-package com.amFlights.Util;
+package com.amFlights.util;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.amFlights.Model.Booking;
-import com.amFlights.Model.User;
+import com.amFlights.model.Booking;
+import com.amFlights.model.User;
 
 public class BookingUtil {
 

@@ -1,4 +1,4 @@
-package com.amFlights.user;
+package com.amFlights.servlet;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,12 +39,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.amFlights.LoginServlet;
-import com.amFlights.Model.Booking;
-import com.amFlights.Model.Flight;
-import com.amFlights.Model.User;
-import com.amFlights.Util.BookingUtil;
-import com.amFlights.Util.SeatUtil;
+import com.amFlights.model.Booking;
+import com.amFlights.model.Flight;
+import com.amFlights.model.User;
+import com.amFlights.util.BookingUtil;
+import com.amFlights.util.SeatUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -131,6 +130,7 @@ public class BookingServlet extends HttpServlet {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			}
 
 		}

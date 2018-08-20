@@ -1,4 +1,4 @@
-package com.amFlights.Util;
+package com.amFlights.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
