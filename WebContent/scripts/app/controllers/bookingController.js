@@ -1,4 +1,4 @@
-app.controller("bookingController", function ($scope,$state, $http, $mdToast) {
+app.controller("bookingController", function ($scope, $state, $http, $mdToast,$mdDialog) {
 
 
 	function getFlights() {
@@ -40,18 +40,31 @@ app.controller("bookingController", function ($scope,$state, $http, $mdToast) {
 
 	$scope.bookTickets = function () {
 		/* while compiling form , angular created this object*/
-		var Indata = { 'seatCount': $scope.booking.seatCount, 'flightId': $scope.booking.selectedFlight.flight_id, 'seatType': $scope.booking.seatType,'seatCount' : $scope.booking.seatCount , 'isMealRequired': $scope.booking.isMealRequired };
+		var Indata = { 'seatCount': $scope.booking.seatCount, 'flightId': $scope.booking.selectedFlight.flight_id, 'seatType': $scope.booking.seatType, 'seatCount': $scope.booking.seatCount, 'isMealRequired': $scope.booking.isMealRequired };
 
 		/* post to server*/
 		$http.post("Booking", Indata).then(function (response) {
 			//First function handles success
-			$state.go('welcome');
-
+			//  $scope.bookingClass = response.data.bookingClass;
+			//  $scope.bookingFlight = response.data.bookingFlight;
+			//  $scope.bookedSeatList = response.data.bookedSeatList;
+			//  $scope.bookingPrice = response.data.bookingPrice;
+			showBookingSuccess();
 		}, function (response) {
 			//Second function handles error
 			$scope.content = "Something went wrong";
 		});
 	};
+
+	function showBookingSuccess() {
+		$mdDialog.show({
+			controller: DialogController,
+			templateUrl: 'views/BookingSuccessFull.html',
+			parent: angular.element(document.body),
+			clickOutsideToClose:false,
+			fullscreen: true // Only for -xs, -sm breakpoints.
+		  });
+	}
 
 	function init() {
 		getFlights();
@@ -60,4 +73,17 @@ app.controller("bookingController", function ($scope,$state, $http, $mdToast) {
 	}
 	init();
 
+	 
+	function DialogController($scope, $mdDialog) {
+		$scope.bookAnother = function() {
+		  $mdDialog.hide();
+		  $state.go("booking.chooseFlight");
+		};
+	
+		$scope.viewSummary = function() {
+		  $mdDialog.hide();
+		  $state.go("summary");
+		};
+	
+	  }
 });

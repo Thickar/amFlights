@@ -41,6 +41,7 @@ import org.apache.log4j.Logger;
 
 import com.amFlights.LoginServlet;
 import com.amFlights.Model.Booking;
+import com.amFlights.Model.Flight;
 import com.amFlights.Model.User;
 import com.amFlights.Util.BookingUtil;
 import com.amFlights.Util.SeatUtil;
@@ -73,6 +74,11 @@ public class BookingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+
+		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+
 
 	}
 
@@ -117,8 +123,9 @@ public class BookingServlet extends HttpServlet {
 			try {
 
 				int availableSeatCount = new SeatUtil(con).getAvailableSeatCount(flightId, seatType);
-				if (availableSeatCount >= seatCount && new BookingUtil(con).bookTickets(flightId, seatType, seatCount, isMealRequired)) {					
-                        response.setStatus(HttpServletResponse.SC_OK);
+				if (availableSeatCount >= seatCount) {				
+					int bookingId = new BookingUtil(con).bookTickets(flightId, seatType, seatCount, isMealRequired);
+					out.print(bookingId);
 				} else {
 					response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, "Seats full");
 				}

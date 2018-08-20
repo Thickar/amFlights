@@ -39,6 +39,12 @@
             url: '/cancelBooking',
             templateUrl: "views/welcome.html",
             controller: "navbarController"
+        })
+        
+         .state('summary', {
+            url: '/summary',
+            templateUrl: "views/BookingSummary.html",
+            controller: "summaryController"
         });
 
     // catch all route

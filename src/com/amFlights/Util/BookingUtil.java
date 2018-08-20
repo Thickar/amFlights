@@ -1,5 +1,6 @@
 package com.amFlights.Util;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,20 +62,54 @@ public class BookingUtil {
 		}
 	}
 
-	public Boolean bookTickets(int flight_id, int seat_type, int seat_count, Boolean isMealRequired) throws Exception {
+//	public int getSeatsOfBooking(int booking_id) throws Exception {
+//		PreparedStatement ps = null;
+//		ResultSet rs = null;
+//		try {
+//			query.append("SELECT seat_ from seat_price from flight where flight_id = ?");
+//			ps = con.prepareStatement(query.toString());
+//			ps.setInt(1, flight_id);
+//
+//			rs = ps.executeQuery();
+//
+//			if (rs != null && rs.next()) {
+//				return rs.getInt("seat_price");
+//			} else {
+//				throw new Exception("Not found");
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			throw new ServletException("DB Connection problem.");
+//		} finally {
+//			try {
+//				rs.close();
+//				ps.close();
+//			} catch (SQLException e) {
+//				throw new ServletException("SQLException in closing PreparedStatement or ResultSet");
+//
+//			}
+//
+//		}
+//	}
+	
+	public Booking getBookingDetail(int booking_id) throws Exception {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = con.prepareStatement("CALL booktickets(?,?,?,?)");
-			ps.setInt(1, flight_id);
-			ps.setInt(2, seat_type);
-			ps.setInt(3, seat_count);
-			ps.setInt(4, isMealRequired ? 1 : 0);
+			ps = con.prepareStatement("select * from booking where booking_id = ?");
+			ps.setInt(1, booking_id);
 
 			rs = ps.executeQuery();
 
-			return rs.next();
-			
+			if (rs != null && rs.next()) {
+				Booking booking = new Booking();
+				booking.setBooking_charges(rs.getInt("booking_charges"));
+				booking.setIs_meals_required(rs.getInt("is_meals_required") == 1 ? true : false);
+				booking.setCancellation_charges(rs.getInt("cancellation_charges"));
+				return booking;
+			} else {
+				throw new Exception("Not found");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ServletException("DB Connection problem.");
@@ -90,4 +125,35 @@ public class BookingUtil {
 		}
 	}
 
+	
+	public int bookTickets(int flight_id, int seat_type, int seat_count, Boolean isMealRequired) throws Exception {
+		CallableStatement callableStatement = null;
+		try {
+			callableStatement =  con.prepareCall("{ CALL booktickets(?,?,?,?,?) }");
+			callableStatement.setInt(1, flight_id);
+			callableStatement.setInt(2, seat_type);
+			callableStatement.setInt(3, seat_count);
+			callableStatement.setInt(4, isMealRequired ? 1 : 0);
+			callableStatement.registerOutParameter(5,java.sql.Types.INTEGER);
+
+			callableStatement.executeUpdate();
+			
+			return callableStatement.getInt(5);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ServletException("DB Connection problem.");
+		} finally {
+			try {
+				if (callableStatement != null) {
+					callableStatement.close();
+				}
+			} catch (SQLException e) {
+				throw new ServletException("SQLException in closing PreparedStatement or ResultSet");
+
+			}
+
+		}
+	}
+    
 }

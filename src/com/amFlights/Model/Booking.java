@@ -7,8 +7,15 @@ public class Booking {
 	private int cancellation_charges;
 	private Boolean is_cancelled;
 	private Boolean is_meals_required;
+	private String seats;
 	public int getBooking_id() {
 		return booking_id;
+	}
+	public String getSeats() {
+		return seats;
+	}
+	public void setSeats(String seats) {
+		this.seats = seats;
 	}
 	public void setBooking_id(int booking_id) {
 		this.booking_id = booking_id;

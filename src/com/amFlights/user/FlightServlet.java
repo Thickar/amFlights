@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 
 import com.amFlights.LoginServlet;
 import com.amFlights.Model.Flight;
+import com.amFlights.Util.FlightUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -54,48 +55,19 @@ public class FlightServlet extends HttpServlet {
 
 		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
 
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
 		try {
-
-			ps = con.prepareStatement("SELECT * FROM FLIGHT");
-			rs = ps.executeQuery();
-
-			List<Flight> flightList = new ArrayList<Flight>();
-
-			// Extract data from result set
-			while (rs.next()) {
-				// Retrieve by column name
-				int flight_id = rs.getInt("flight_id");
-				String flight_name = rs.getString("flight_name");
-				String economy_seat_price = rs.getString("economy_seat_price");
-				String business_seat_price = rs.getString("business_seat_price");
-				flightList.add(new Flight(flight_id, flight_name, economy_seat_price, business_seat_price));
-
-			}
+			FlightUtil flightUtil = new FlightUtil(con);
+			List<Flight> flightList = flightUtil.getFlights();
 
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 			out.print(gson.toJson(flightList));
 			out.flush();
-		} catch (SQLException se) {
-			// Handle errors for JDBC
-			se.printStackTrace();
-		} catch (Exception e) {
-			// Handle errors for Class.forName
+		}catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				ps.close();
-			} catch (SQLException e) {
-				logger.error("SQLException in closing PreparedStatement or ResultSet");
-				
-			}
-
 		}
-
+		
 	}
 
 	/**

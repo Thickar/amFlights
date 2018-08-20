@@ -77,7 +77,7 @@ public class SeatServlet extends HttpServlet {
 				int seatCount = new SeatUtil(con).getAvailableSeatCount(flight_id, seat_type);
 					if(seatCount > 0)
 					{
-						out.println(seatCount);
+						out.print(seatCount);
 					}else {
 						response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED,"Seats fulll");
 					}
