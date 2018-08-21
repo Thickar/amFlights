@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.amFlights.model.Flight;
+import com.amFlights.util.Constants;
 import com.amFlights.util.FlightUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -52,7 +53,7 @@ public class FlightServlet extends HttpServlet {
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 
-		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+		Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
 
 		try {
 			FlightUtil flightUtil = new FlightUtil(con);

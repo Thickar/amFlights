@@ -1,17 +1,20 @@
-app.controller("summaryController", function ($scope, $rootScope,flightService) {
+app.controller("summaryController", function ($scope, $rootScope,flightService,$http) {
 	
-    $scope.getFlightFromService = flightService.then(function (response) {
-        //First function handles success
-        $scope.flights = response.data;
+	function getFlights() {
 
-    }, function (response) {
-        //Second function handles error
-        $scope.content = "Something went wrong";
-    });
+		flightService.then(function (response) {
+			//First function handles success
+			$scope.flights = response.data;
+
+		}, function (response) {
+			//Second function handles error
+			$scope.content = "Something went wrong";
+		});
+	};
 
     $scope.getBookings = function()
     {
-        $http.get("Booking?cancelled=true").then(function (response) {
+        $http.get("Booking?flightId="+$scope.selectedFlight.flight_id).then(function (response) {
 			//First function handles success
 			$scope.bookings = response.data;
 
@@ -24,6 +27,10 @@ app.controller("summaryController", function ($scope, $rootScope,flightService) 
 					.textContent(errorMessage)
 			);
 		});
-    }
-
+    };
+	function init() {
+		getFlights();
+		// $scope.booking.selectedFlight = "test";
+	};
+	init();
 });

@@ -11,11 +11,7 @@ app.controller("bookingController", function ($scope,$rootScope, $state, $http, 
 			//Second function handles error
 			$scope.content = "Something went wrong";
 		});
-	}
-
-	$rootScope.$on("GetFlights",function(){
-		getFlights();
-	});
+	};
 
 	$scope.getAvailabeSeatCountForType = function () {
 
@@ -37,7 +33,7 @@ app.controller("bookingController", function ($scope,$rootScope, $state, $http, 
 					.textContent(errorMessage)
 			);
 		});
-	}
+	};
 
 
 	$scope.booking = {};
@@ -68,13 +64,13 @@ app.controller("bookingController", function ($scope,$rootScope, $state, $http, 
 			clickOutsideToClose:false,
 			fullscreen: true // Only for -xs, -sm breakpoints.
 		  });
-	}
+	};
 
 	function init() {
 		getFlights();
 		$state.go("booking.chooseFlight");
 		// $scope.booking.selectedFlight = "test";
-	}
+	};
 	init();
 
 	 
@@ -89,5 +85,5 @@ app.controller("bookingController", function ($scope,$rootScope, $state, $http, 
 		  $state.go("summary");
 		};
 	
-	  }
+	  };
 });

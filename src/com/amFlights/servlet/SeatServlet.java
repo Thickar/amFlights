@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 
 import com.amFlights.model.Flight;
 import com.amFlights.model.Seat;
+import com.amFlights.util.Constants;
 import com.amFlights.util.SeatUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -69,7 +70,7 @@ public class SeatServlet extends HttpServlet {
 			response.setContentType("application/text");
 			PrintWriter out = response.getWriter();
 
-			Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+			Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
 
 			try {
  

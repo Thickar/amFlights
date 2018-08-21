@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.amFlights.model.User;
+import com.amFlights.util.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -78,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 //			rd.include(request, response);
 		}else{
 		
-		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+		Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {

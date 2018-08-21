@@ -4,6 +4,6 @@
 
       $scope.menuItems = [
             { link: "booking", name: "Book tickets" },
-            { link: "login", name: "Login tickets" },
+            // { link: "login", name: "Login tickets" },
             { link: "summary", name: "View summary" }]
 });

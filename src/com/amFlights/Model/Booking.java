@@ -1,15 +1,61 @@
 package com.amFlights.model;
 
 public class Booking {
-	private int booking_id;
-	private int flight_id;
-	private int booking_charges;
-	private int cancellation_charges;
-	private Boolean is_cancelled;
-	private Boolean is_meals_required;
+	private int bookingId;
+	private int flightId;
+	private int bookingCharges;
+	private int cancellationCharges;
+	private Boolean isCancelled;
+	private Boolean isMealsRequired;
 	private String seats;
-	public int getBooking_id() {
-		return booking_id;
+	private int seatType;
+	public Booking(int bookingId, int flightId, int bookingCharges, int cancellationCharges, Boolean isCancelled,
+			Boolean isMealsRequired, String seats, int seatType) {
+		super();
+		this.bookingId = bookingId;
+		this.flightId = flightId;
+		this.bookingCharges = bookingCharges;
+		this.cancellationCharges = cancellationCharges;
+		this.isCancelled = isCancelled;
+		this.isMealsRequired = isMealsRequired;
+		this.seats = seats;
+		this.seatType = seatType;
+	}
+	public int getBookingId() {
+		return bookingId;
+	}
+	public void setBookingId(int bookingId) {
+		this.bookingId = bookingId;
+	}
+	public int getFlightId() {
+		return flightId;
+	}
+	public void setFlightId(int flightId) {
+		this.flightId = flightId;
+	}
+	public int getBookingCharges() {
+		return bookingCharges;
+	}
+	public void setBookingCharges(int bookingCharges) {
+		this.bookingCharges = bookingCharges;
+	}
+	public int getCancellationCharges() {
+		return cancellationCharges;
+	}
+	public void setCancellationCharges(int cancellationCharges) {
+		this.cancellationCharges = cancellationCharges;
+	}
+	public Boolean getIsCancelled() {
+		return isCancelled;
+	}
+	public void setIsCancelled(Boolean isCancelled) {
+		this.isCancelled = isCancelled;
+	}
+	public Boolean getIsMealsRequired() {
+		return isMealsRequired;
+	}
+	public void setIsMealsRequired(Boolean isMealsRequired) {
+		this.isMealsRequired = isMealsRequired;
 	}
 	public String getSeats() {
 		return seats;
@@ -17,38 +63,11 @@ public class Booking {
 	public void setSeats(String seats) {
 		this.seats = seats;
 	}
-	public void setBooking_id(int booking_id) {
-		this.booking_id = booking_id;
+	public int getSeatType() {
+		return seatType;
 	}
-	
-	public int getFlight_id() {
-		return flight_id;
+	public void setSeatType(int seatType) {
+		this.seatType = seatType;
 	}
-	public void setFlight_id(int flight_id) {
-		this.flight_id = flight_id;
-	}
-	public int getBooking_charges() {
-		return booking_charges;
-	}
-	public void setBooking_charges(int booking_charges) {
-		this.booking_charges = booking_charges;
-	}
-	public int getCancellation_charges() {
-		return cancellation_charges;
-	}
-	public void setCancellation_charges(int cancellation_charges) {
-		this.cancellation_charges = cancellation_charges;
-	}
-	public Boolean getIs_cancelled() {
-		return is_cancelled;
-	}
-	public void setIs_cancelled(Boolean is_cancelled) {
-		this.is_cancelled = is_cancelled;
-	}
-	public Boolean getIs_meals_required() {
-		return is_meals_required;
-	}
-	public void setIs_meals_required(Boolean is_meals_required) {
-		this.is_meals_required = is_meals_required;
-	}
+
 }

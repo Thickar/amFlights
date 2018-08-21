@@ -43,6 +43,8 @@ import com.amFlights.model.Booking;
 import com.amFlights.model.Flight;
 import com.amFlights.model.User;
 import com.amFlights.util.BookingUtil;
+import com.amFlights.util.Constants;
+import com.amFlights.util.FlightUtil;
 import com.amFlights.util.SeatUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -75,10 +77,22 @@ public class BookingServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
+		int flightId = Integer.valueOf(request.getParameter("flightId"));
 
-		Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+		Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
 
+		try {
+			BookingUtil bookingUtil = new BookingUtil(con);
+			List<Booking> bookingList = bookingUtil.getBookings(flightId, false);
 
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+			out.print(gson.toJson(bookingList));
+			out.flush();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -117,7 +131,7 @@ public class BookingServlet extends HttpServlet {
 			response.setContentType("application/text");
 			PrintWriter out = response.getWriter();
 
-			Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+			Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
 
 			try {
 
