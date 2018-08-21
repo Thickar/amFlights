@@ -1,9 +1,9 @@
 <!-- form-profile.html -->
 <div class="form-group">
     <div class="form-group row">
-        <md-select ng-model="booking.selectedFlight" ng-change="setSelectedFlight(selectedFlight)" class="md-underline">
-            <md-option ng-value="flight" ng-repeat="flight in flights">{{ flight.flight_name }}</md-option>
-        </md-select>
+            <md-select placeholder="Flight" ng-model="booking.selectedFlight" ng-change="setSelectedFlight(selectedFlight)" class="md-underline">
+                <md-option ng-value="flight" ng-repeat="flight in flights">{{ flight.flight_name }}</md-option>
+            </md-select>
     </div>
 
     <div class="form-group row">

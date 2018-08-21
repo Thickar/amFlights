@@ -1,0 +1,37 @@
+<div ng-controller="summaryController" layout="column" layout-align="center center" style="padding:40px" ng-cloak="" class="selectdemoOptionsWithAsyncSearch"
+  ng-app="MyApp">
+  <p>Choose a flight to see it's bookings</p>
+  <div layout="column" layout-align="center center">
+    <md-select placeholder="Flight" ng-model="flight" md-on-open="getFlightFromService()" ng-change="getBookings()" style="min-width: 200px;">
+      <md-option ng-value="flight" ng-repeat="flight in flights">{{flight.flight_name}}</md-option>
+    </md-select>
+  </div>
+
+
+  <div ng-repeat="booking in bookings">
+    <div class="container item">
+      <div class="bp-card" data-clickthrough="link">
+        <div class="bp-card_label">
+          <div class="bd-border_solid"></div>
+          <div class="bd-border_dotted"></div>
+        </div>
+        <div class="bp-card_content">
+          <p class="secondary">Economy Class</p>
+          <h4>Jet Airways</h4>
+          <ul>
+            <span>Seats : 1, 2, 3, 4, 5, 6, 7 ,8 , 9, 10 ,11 12, 13, 14, 15, 16, 17, 18 </span>
+            <a href="" class="price">
+              ₹ 100
+            </a>
+            <button class="button buttonRed cancel"> cancel </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--
+      Copyright 2018 Google Inc. All Rights Reserved. 
+      Use of this source code is governed by an MIT-style license that can be foundin the LICENSE file at http://material.angularjs.org/HEAD/license.
+      -->

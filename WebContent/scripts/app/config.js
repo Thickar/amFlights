@@ -43,7 +43,7 @@
         
          .state('summary', {
             url: '/summary',
-            templateUrl: "views/BookingSummary.html",
+            templateUrl: "views/Summary.html",
             controller: "summaryController"
         });
 

@@ -51,7 +51,7 @@ SET surgedPrice = currentSeatPrice + 200;
 
 ELSE 
 
-SET surgedPrice = currenSeatPrice + 100;
+SET surgedPrice = currentSeatPrice + 100;
 
 END IF;
 
@@ -90,9 +90,10 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `booktickets`(flightid       INT, 
                                 seattype       INT, 
                                 seatcount      INT, 
-                                ismealrequired INT)
+                                ismealrequired INT,
+                                OUT bookingId INT)
 begin 
-  DECLARE seatprice, bookingcharges, bookingid INT; 
+  DECLARE seatprice, bookingcharges INT; 
 
 SELECT  (CASE seattype
     WHEN 0 THEN business_seat_price
@@ -133,7 +134,7 @@ SELECT seatprice;
   LIMIT  seatcount; 
   
   select priceSurging(flightid, seattype);
-  
+    
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -150,4 +151,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-18 18:21:52
+-- Dump completed on 2018-08-21  7:22:11

@@ -1,9 +1,9 @@
-app.controller("bookingController", function ($scope, $state, $http, $mdToast,$mdDialog) {
+app.controller("bookingController", function ($scope,$rootScope, $state, $http, $mdToast,$mdDialog,flightService) {
 
 
 	function getFlights() {
 
-		$http.get("Flight").then(function (response) {
+		flightService.then(function (response) {
 			//First function handles success
 			$scope.flights = response.data;
 
@@ -12,6 +12,10 @@ app.controller("bookingController", function ($scope, $state, $http, $mdToast,$m
 			$scope.content = "Something went wrong";
 		});
 	}
+
+	$rootScope.$on("GetFlights",function(){
+		getFlights();
+	});
 
 	$scope.getAvailabeSeatCountForType = function () {
 
