@@ -64,7 +64,36 @@ public class BookingUtil {
 
 		}
 	}
+	
+	public boolean cancelBooking(int bookingId) throws Exception {
+		PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(Constants.CANCEL_BOOKING_BY_BOOKING_ID);
+			ps.setInt(1, bookingId);
+			ps.setInt(2, bookingId);
 
+			int result = ps.executeUpdate();
+
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ServletException("DB Connection problem.");
+		} finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				throw new ServletException("SQLException in closing PreparedStatement or ResultSet");
+
+			}
+
+		}
+	}
+
+	
 	
 	public List<Booking> getBookings(int flightId,Boolean cancelled) throws ServletException
 	{

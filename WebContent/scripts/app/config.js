@@ -1,9 +1,10 @@
 ﻿app.config(function ($stateProvider, $urlRouterProvider) {
 
+
     $stateProvider.state('login', {
         url: '/login',
         templateUrl: "views/login.html",
-        controller: "loginController"
+        controller: "loginController"   
     })
 
         .state('welcome', {

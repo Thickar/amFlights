@@ -101,9 +101,7 @@ SELECT  (CASE seattype
   INTO seatprice
   FROM   flight 
   WHERE  flight_id = flightid;
-  
-SELECT seatprice;
-  
+
   SET bookingcharges = seatcount * seatprice; 
 
   INSERT INTO `amflights`.`booking` 
@@ -129,8 +127,8 @@ SELECT seatprice;
                              FROM   booking b 
                                     INNER JOIN seat_booked s 
                                             ON b.booking_id = s.booking_id 
-                                               AND b.is_cancelled = false 
-                             WHERE  b.flight_id = flightid) 
+                                               AND b.is_cancelled = false  
+                             AND  b.flight_id = flightid) 
   LIMIT  seatcount; 
   
   select priceSurging(flightid, seattype);
@@ -151,4 +149,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-21  7:22:11
+-- Dump completed on 2018-08-24 15:13:30

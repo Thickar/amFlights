@@ -1,3 +1,3 @@
-app.factory('flightService', function ($http) {
-    return $http.get("Flight");
+app.factory('flightService', function ($http,$rootScope) {
+    return $http.get($rootScope.baseUrl + "Flight");
 });

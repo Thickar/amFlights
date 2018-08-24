@@ -157,6 +157,24 @@ public class BookingServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+				response.setContentType("application/json");
+				int bookingId = Integer.valueOf(request.getParameter("bookingId"));
+
+				Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
+
+				try {
+					BookingUtil bookingUtil = new BookingUtil(con);
+				     if(bookingUtil.cancelBooking(bookingId))
+				     {
+				    	 response.setStatus(HttpServletResponse.SC_OK);
+				     }else {
+				    	 response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+				     }
+				}catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+			    	 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				}
 	}
 
 }

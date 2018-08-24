@@ -64,8 +64,14 @@ public class AuthenticationFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+
+		res.setHeader("Access-Control-Allow-Origin", "http://localhost:5000");
+		res.setHeader("Access-Control-Allow-Methods", "POST, GET");
+		res.setHeader("Access-Control-Max-Age", "3600");
+		res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+		   
 		
-		String uri = req.getQueryString();
+		String uri = req.getRequestURI();
 		logger.info("Requested Resource::"+uri);
 		
 		HttpSession session = req.getSession(false);

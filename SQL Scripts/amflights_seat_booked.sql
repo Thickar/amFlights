@@ -34,7 +34,7 @@ CREATE TABLE `seat_booked` (
   CONSTRAINT `seat_booked_ibfk_1` FOREIGN KEY (`seat_id`) REFERENCES `seat` (`seat_id`),
   CONSTRAINT `seat_booked_ibfk_2` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`flight_id`),
   CONSTRAINT `seat_booked_ibfk_3` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `seat_booked` (
 
 LOCK TABLES `seat_booked` WRITE;
 /*!40000 ALTER TABLE `seat_booked` DISABLE KEYS */;
-INSERT INTO `seat_booked` VALUES (1,67,2,13),(2,68,2,13);
+INSERT INTO `seat_booked` VALUES (1,67,3,15),(2,68,3,15),(4,69,3,16),(5,70,3,16),(6,71,3,16),(7,67,2,17),(8,68,2,17),(10,69,2,18),(11,70,2,18),(12,67,5,19),(13,68,5,20),(14,69,5,21),(15,67,4,22),(16,68,4,22),(18,69,4,23),(19,70,4,23),(21,71,2,24),(22,72,2,24),(24,70,5,25),(25,71,5,25),(27,71,4,26),(28,72,4,26),(30,72,3,27),(31,73,2,28),(32,74,2,28),(34,73,5,29),(35,74,5,29),(36,75,5,29),(37,76,5,29),(38,67,2,30),(39,68,2,30),(40,69,2,30),(41,70,2,30),(42,71,2,30),(43,72,2,30),(45,67,2,31),(46,68,2,31),(47,69,2,31),(48,70,2,31),(49,71,2,31),(50,72,2,31);
 /*!40000 ALTER TABLE `seat_booked` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-18 18:21:49
+-- Dump completed on 2018-08-24 15:13:26

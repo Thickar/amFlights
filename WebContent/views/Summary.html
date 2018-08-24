@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="styles/ticket.css" />
 
-<div ng-controller="summaryController" class="summary ">
+<div ng-controller="summaryController">
   <div layout="column" layout-align="center center" style="padding:40px" ng-cloak="">
     <p>Choose a flight to see it's bookings</p>
     <div layout="column" layout-align="center center">
@@ -10,10 +10,10 @@
     </div>
   </div>
 
-  <div ng-repeat="booking in bookings">
+  <div ng-repeat="booking in bookings" class="summary">
     <div class="container item">
       <div class="bp-card" data-clickthrough="link">
-        <div class="bp-card_label">
+        <div class="bp-card_label"> 
           <div class="bd-border_solid"></div>
           <div class="bd-border_dotted"></div>
         </div>
@@ -27,7 +27,7 @@
             <a href="" class="price">
               ₹ {{booking.bookingCharges}}
             </a>
-            <button class="button buttonRed cancel"> cancel </button>
+            <button class="button buttonRed cancel" ng-click="cancelBooking(booking.bookingId)" ng-hide="booking.isCancelled"> cancel </button>
         </div>
       </div>
     </div>
