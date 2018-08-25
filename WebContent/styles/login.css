@@ -1,8 +1,12 @@
-div#LoginForm {
+body{
+
     background-image: url("../res/flight-bg.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+
+div#LoginForm {
     padding: 10px;
     width: 100%;
     height : 100%
