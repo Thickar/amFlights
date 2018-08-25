@@ -37,7 +37,7 @@ CREATE TABLE `flight` (
 
 LOCK TABLES `flight` WRITE;
 /*!40000 ALTER TABLE `flight` DISABLE KEYS */;
-INSERT INTO `flight` VALUES (2,'Lufthansa ',1000,2800),(3,'Frontier Airlines ',1000,2600),(4,'JetBlue Airways ',1000,2800),(5,'JetBlue Airways ',1100,2800),(6,'Alaska Airlines ',1000,2000);
+INSERT INTO `flight` VALUES (2,'Lufthansa ',1100,3400),(3,'Frontier Airlines ',1100,3000),(4,'JetBlue Airways ',1000,2800),(5,'JetBlue Airways ',1100,2800),(6,'Alaska Airlines ',1000,2000);
 /*!40000 ALTER TABLE `flight` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-24 15:13:27
+-- Dump completed on 2018-08-25 19:28:32

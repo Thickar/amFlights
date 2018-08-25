@@ -95,7 +95,7 @@ public class BookingUtil {
 
 	
 	
-	public List<Booking> getBookings(int flightId,Boolean cancelled) throws ServletException
+	public List<Booking> getBookings(int flightId,int userId,Boolean cancelled) throws ServletException
 	{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -104,6 +104,7 @@ public class BookingUtil {
 
 			ps = con.prepareStatement(Constants.GET_BOOKINGS_BY_FLIGHT);
 			ps.setInt(1, flightId);
+			ps.setInt(2, userId);
 			rs = ps.executeQuery();
 
 			List<Booking> bookingList = new ArrayList<Booking>();
@@ -139,19 +140,20 @@ public class BookingUtil {
 		}
 	}
 	
-	public int bookTickets(int flight_id, int seat_type, int seat_count, Boolean isMealRequired) throws Exception {
+	public int bookTickets(int flight_id, int seat_type, int seat_count, Boolean isMealRequired,int userId) throws Exception {
 		CallableStatement callableStatement = null;
 		try {
-			callableStatement =  con.prepareCall("{ CALL booktickets(?,?,?,?,?) }");
+			callableStatement =  con.prepareCall("{ CALL booktickets(?,?,?,?,?,?) }");
 			callableStatement.setInt(1, flight_id);
 			callableStatement.setInt(2, seat_type);
 			callableStatement.setInt(3, seat_count);
 			callableStatement.setInt(4, isMealRequired ? 1 : 0);
-			callableStatement.registerOutParameter(5,java.sql.Types.INTEGER);
+			callableStatement.setInt(5, userId);
+			callableStatement.registerOutParameter(6,java.sql.Types.INTEGER);
 
 			callableStatement.executeUpdate();
 			
-			return callableStatement.getInt(5);
+			return callableStatement.getInt(6);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

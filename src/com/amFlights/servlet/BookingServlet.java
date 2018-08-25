@@ -79,19 +79,26 @@ public class BookingServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		int flightId = Integer.valueOf(request.getParameter("flightId"));
 
-		Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			User user = (User) session.getAttribute(Constants.SessionObject);
 
-		try {
-			BookingUtil bookingUtil = new BookingUtil(con);
-			List<Booking> bookingList = bookingUtil.getBookings(flightId, false);
+			Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
 
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			try {
+				BookingUtil bookingUtil = new BookingUtil(con);
+				List<Booking> bookingList = bookingUtil.getBookings(flightId, user.getUserId(), false);
 
-			out.print(gson.toJson(bookingList));
-			out.flush();
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+				Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+				out.print(gson.toJson(bookingList));
+				out.flush();
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		} else {
+
 		}
 	}
 
@@ -107,46 +114,52 @@ public class BookingServlet extends HttpServlet {
 
 		JsonObject jsonObject = (JsonObject) parser.parse(reader);
 		response.setContentType("application/json");
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			User user = (User) session.getAttribute(Constants.SessionObject);
+			
+			int seatCount = jsonObject.get("seatCount").getAsInt();
+			int flightId = jsonObject.get("flightId").getAsInt();
+			int seatType = jsonObject.get("seatType").getAsInt();
+			Boolean isMealRequired = jsonObject.get("isMealRequired").getAsBoolean();
 
-		int seatCount = jsonObject.get("seatCount").getAsInt();
-		int flightId = jsonObject.get("flightId").getAsInt();
-		int seatType = jsonObject.get("seatType").getAsInt();
-		Boolean isMealRequired = jsonObject.get("isMealRequired").getAsBoolean();
-
-		String errorMsg = null;
-		if (seatCount < 1) {
-			errorMsg += "seat count must be greater than zero";
-		}
-		if (flightId < 1) {
-			errorMsg += "flightId must be greater than zero";
-		}
-
-		if (errorMsg != null) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND, errorMsg);
-//			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-//			rd.include(request, response);
-		} else {
-
-			// Set response content type
-			response.setContentType("application/text");
-			PrintWriter out = response.getWriter();
-
-			Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
-
-			try {
-
-				int availableSeatCount = new SeatUtil(con).getAvailableSeatCount(flightId, seatType);
-				if (availableSeatCount >= seatCount) {				
-					int bookingId = new BookingUtil(con).bookTickets(flightId, seatType, seatCount, isMealRequired);
-					out.print(bookingId);
-				} else {
-					response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, "Seats full");
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			String errorMsg = null;
+			if (seatCount < 1) {
+				errorMsg += "seat count must be greater than zero";
+			}
+			if (flightId < 1) {
+				errorMsg += "flightId must be greater than zero";
 			}
 
+			if (errorMsg != null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, errorMsg);
+//			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+//			rd.include(request, response);
+			} else {
+
+				// Set response content type
+				response.setContentType("application/text");
+				PrintWriter out = response.getWriter();
+
+				Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
+
+				try {
+
+					int availableSeatCount = new SeatUtil(con).getAvailableSeatCount(flightId, seatType);
+					if (availableSeatCount >= seatCount) {
+						int bookingId = new BookingUtil(con).bookTickets(flightId, seatType, seatCount, isMealRequired,user.getUserId());
+						out.print(bookingId);
+					} else {
+						response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED, "Seats full");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				}
+
+			}
+		} else {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 		}
 
 	}
@@ -157,24 +170,23 @@ public class BookingServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-				response.setContentType("application/json");
-				int bookingId = Integer.valueOf(request.getParameter("bookingId"));
+		response.setContentType("application/json");
+		int bookingId = Integer.valueOf(request.getParameter("bookingId"));
 
-				Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
+		Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);
 
-				try {
-					BookingUtil bookingUtil = new BookingUtil(con);
-				     if(bookingUtil.cancelBooking(bookingId))
-				     {
-				    	 response.setStatus(HttpServletResponse.SC_OK);
-				     }else {
-				    	 response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-				     }
-				}catch (Exception e) {
-					// TODO: handle exception
-					e.printStackTrace();
-			    	 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				}
+		try {
+			BookingUtil bookingUtil = new BookingUtil(con);
+			if (bookingUtil.cancelBooking(bookingId)) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

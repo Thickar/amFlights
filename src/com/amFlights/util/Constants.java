@@ -22,7 +22,7 @@ public class Constants {
 			" booking b ON sb.flight_id = ?" + 
 			" AND b.booking_id = sb.booking_id" + 
 			" INNER JOIN" + 
-			" seat s ON s.seat_id = sb.seat_id" + 
+			" seat s ON s.seat_id = sb.seat_id AND b.user_id = ?" + 
 			" GROUP BY sb.booking_id ORDER BY b.is_cancelled ";
 	
 	public static final String CANCEL_BOOKING_BY_BOOKING_ID = "UPDATE booking " + 

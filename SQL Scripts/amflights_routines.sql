@@ -91,6 +91,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `booktickets`(flightid       INT,
                                 seattype       INT, 
                                 seatcount      INT, 
                                 ismealrequired INT,
+                                userId INT,
                                 OUT bookingId INT)
 begin 
   DECLARE seatprice, bookingcharges INT; 
@@ -107,10 +108,12 @@ SELECT  (CASE seattype
   INSERT INTO `amflights`.`booking` 
               (`flight_id`, 
                `booking_charges`, 
-               `is_meals_required`) 
+               `is_meals_required`,
+               `user_id`) 
   VALUES      (flightid, 
                bookingcharges, 
-               ismealrequired); 
+               ismealrequired,
+               userId); 
 
   SET bookingid = LAST_INSERT_ID(); 
 
@@ -149,4 +152,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-24 15:13:30
+-- Dump completed on 2018-08-25 19:28:35

@@ -29,10 +29,13 @@ CREATE TABLE `booking` (
   `cancellation_charges` int(11) DEFAULT '0',
   `is_cancelled` tinyint(4) DEFAULT '0',
   `is_meals_required` tinyint(4) DEFAULT '0',
+  `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`booking_id`),
   KEY `flight_id_idx` (`flight_id`),
-  CONSTRAINT `flight_id` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`flight_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_idx` (`user_id`),
+  CONSTRAINT `flight_id` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`flight_id`),
+  CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +44,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (15,3,4000,400,1,1),(16,3,6600,600,1,1),(17,2,4000,400,1,1),(18,2,4000,400,1,1),(19,5,2000,0,0,1),(20,5,2200,0,0,1),(21,5,2400,0,0,1),(22,4,4400,400,1,1),(23,4,4800,400,1,1),(24,2,4400,400,1,1),(25,5,5200,0,0,1),(26,4,5200,400,1,1),(27,3,2400,200,1,1),(28,2,2000,400,1,1),(29,5,4000,0,0,0),(30,2,14400,1200,1,0),(31,2,15600,1200,1,1);
+INSERT INTO `booking` VALUES (15,3,4000,400,1,1,NULL),(16,3,6600,600,1,1,NULL),(17,2,4000,400,1,1,NULL),(18,2,4000,400,1,1,NULL),(19,5,2000,0,0,1,NULL),(20,5,2200,0,0,1,NULL),(21,5,2400,0,0,1,NULL),(22,4,4400,400,1,1,NULL),(23,4,4800,400,1,1,NULL),(24,2,4400,400,1,1,NULL),(25,5,5200,0,0,1,NULL),(26,4,5200,400,1,1,NULL),(27,3,2400,200,1,1,NULL),(28,2,2000,400,1,1,NULL),(29,5,4000,0,0,0,NULL),(30,2,14400,1200,1,0,NULL),(31,2,15600,1200,1,1,NULL),(32,2,16800,1200,1,1,NULL),(33,2,6000,0,0,1,NULL),(34,2,12800,0,0,1,1),(35,3,5200,0,0,1,1),(36,3,5600,0,0,1,1),(37,2,12000,0,0,0,1),(38,3,5000,0,0,0,2);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-24 15:13:28
+-- Dump completed on 2018-08-25 19:28:33

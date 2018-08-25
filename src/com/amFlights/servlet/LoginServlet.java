@@ -92,14 +92,14 @@ public class LoginServlet extends HttpServlet {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = con.prepareStatement("select user_type,username,email from user where email= ? and password= ? limit 1");
+			ps = con.prepareStatement("select user_type,username,email,user_id from user where email= ? and password= ? limit 1");
 			ps.setString(1, username);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
 			
 			if(rs != null && rs.next()){
 				
-				User user = new User(rs.getString("username"), rs.getString("email"), rs.getInt("user_type"));
+				User user = new User(rs.getString("username"), rs.getString("email"), rs.getInt("user_type"),rs.getInt("user_id"));
 				logger.info("User found with details="+user.getUsername());
 				session.setAttribute(Constants.SessionObject, user);
 				response.getWriter().print(gson.toJson(user));
