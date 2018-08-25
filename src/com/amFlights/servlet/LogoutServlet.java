@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+
+import com.amFlights.util.Constants;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -63,10 +66,10 @@ public class LogoutServlet extends HttpServlet {
 		}
 		// invalidate the session if exists
 		HttpSession session = request.getSession(false);
-		logger.info("User=" + session.getAttribute("User"));
+		logger.info("User=" + session.getAttribute(Constants.SessionObject));
 		if (session != null) {
 			session.invalidate();
 		}
-		response.sendRedirect("login.html");
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 }

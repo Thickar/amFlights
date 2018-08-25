@@ -10,7 +10,7 @@
         .state('welcome', {
             url: '/welcome',
             templateUrl: "views/welcome.html",
-            controller: "navbarController"
+            controller: "mainController"
         })
         .state('booking', {
             url: '/booking',

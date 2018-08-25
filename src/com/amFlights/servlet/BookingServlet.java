@@ -55,7 +55,7 @@ import com.google.gson.JsonPrimitive;
 /**
  * Servlet implementation class Booking
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/Booking" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/api/Booking" })
 public class BookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static Logger logger = Logger.getLogger(BookingServlet.class);

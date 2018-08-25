@@ -13,7 +13,7 @@ app.controller("summaryController", function ($scope, $rootScope,flightService,$
 
     $scope.getBookings = function()
     {
-        $http.get($rootScope.baseUrl+"Booking?flightId="+$scope.selectedFlight.flight_id).then(function (response) {
+        $http.get($rootScope.baseUrl+"api/Booking?flightId="+$scope.selectedFlight.flight_id).then(function (response) {
 			//First function handles success
 			$scope.bookings = response.data;
 
@@ -40,7 +40,7 @@ app.controller("summaryController", function ($scope, $rootScope,flightService,$
 	
 	$scope.cancelBooking = function (bookingId) {
 
-		$http.put($rootScope.baseUrl + "Booking?bookingId=" + bookingId).then(function (response) {
+		$http.put($rootScope.baseUrl + "api/Booking?bookingId=" + bookingId).then(function (response) {
 			$scope.getBookings();
 			showBookingSuccess();
 		}, function (response) {

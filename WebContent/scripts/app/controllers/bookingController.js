@@ -15,7 +15,7 @@ app.controller("bookingController", function ($scope,$rootScope, $state, $http, 
 
 	$scope.getAvailabeSeatCountForType = function () {
 
-		$http.get($rootScope.baseUrl + "Seat?flight_id=" + $scope.booking.selectedFlight.flight_id + "&seat_type=" + $scope.booking.seatType).then(function (response) {
+		$http.get($rootScope.baseUrl + "api/Seat?flight_id=" + $scope.booking.selectedFlight.flight_id + "&seat_type=" + $scope.booking.seatType).then(function (response) {
 			//First function handles success
 			$scope.seatCountMax = response.data;
 			$scope.booking.seatCount = response.data;
@@ -43,7 +43,7 @@ app.controller("bookingController", function ($scope,$rootScope, $state, $http, 
 		var Indata = { 'seatCount': $scope.booking.seatCount, 'flightId': $scope.booking.selectedFlight.flight_id, 'seatType': $scope.booking.seatType, 'seatCount': $scope.booking.seatCount, 'isMealRequired': $scope.booking.isMealRequired };
 
 		/* post to server*/
-		$http.post($rootScope.baseUrl + "Booking", Indata).then(function (response) {
+		$http.post($rootScope.baseUrl + "api/Booking", Indata).then(function (response) {
 			//First function handles success
 			//  $scope.bookingClass = response.data.bookingClass;
 			//  $scope.bookingFlight = response.data.bookingFlight;

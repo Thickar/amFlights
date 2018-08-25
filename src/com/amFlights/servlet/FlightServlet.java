@@ -28,7 +28,7 @@ import com.google.gson.GsonBuilder;
 /**
  * Servlet implementation class Flight
  */
-@WebServlet("/Flight")
+@WebServlet("/api/Flight")
 public class FlightServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	static Logger logger = Logger.getLogger(FlightServlet.class);

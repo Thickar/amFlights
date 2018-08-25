@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +50,14 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession(false);
+		if(session != null)
+		{
+			User user = (User) session.getAttribute(Constants.SessionObject);
+			response.getWriter().print(gson.toJson(user));
+		}else {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -62,7 +70,8 @@ public class LoginServlet extends HttpServlet {
 
         JsonObject jsonObject = (JsonObject) parser.parse(reader);
 		response.setContentType("application/json");
-		
+		HttpSession session = request.getSession(true);
+
 		String username = jsonObject.get("email").getAsString();
 		String password = jsonObject.get("password").getAsString();
 		String errorMsg = null;
@@ -91,14 +100,12 @@ public class LoginServlet extends HttpServlet {
 			if(rs != null && rs.next()){
 				
 				User user = new User(rs.getString("username"), rs.getString("email"), rs.getInt("user_type"));
-				logger.info("User found with details="+user);
-				HttpSession session = request.getSession();
-				session.setAttribute("User", user);
-				response.setStatus(HttpServletResponse.SC_OK);
+				logger.info("User found with details="+user.getUsername());
+				session.setAttribute(Constants.SessionObject, user);
+				response.getWriter().print(gson.toJson(user));
 			}else{
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 				logger.error("User not found with email="+username);
-				response.sendError(HttpServletResponse.SC_NOT_FOUND,"Exceuted ");
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

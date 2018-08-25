@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head> 
 	<title>Am Flights</title>
 	<meta charset="UTF-8" />
 
@@ -20,7 +20,7 @@
 
 	<script src="scripts/app/app.js"></script>
 	<script src="scripts/app/config.js"></script>
-	<script src="scripts/app/controllers/navbarController.js"></script>
+	<script src="scripts/app/controllers/mainController.js"></script>
 	<script src="scripts/app/controllers/loginController.js"></script>
 	<script src="scripts/app/controllers/bookingController.js"></script>
 	<script src="scripts/app/controllers/summaryController.js"></script>
@@ -32,7 +32,7 @@
 
 <body ng-app="amFlights">
 
-	<div ng-show="showNavBar" ng-controller="navbarController">
+	<div ng-show="showNavBar" ng-controller="mainController">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -43,6 +43,12 @@
 						<a ui-sref="{{menu.link}}"> {{menu.name}} </a>
 					</li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a ng-show="isUserLoggedIn" ><span class="glyphicon glyphicon-user"></span> {{user.username}}</a></li>
+					<li><a ng-show="isUserLoggedIn" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
+					<li><a href="#" ng-show="!isUserLoggedIn" ng-click="login()"  ><span class="glyphicon glyphicon-log-in" ng-show></span> Login</a></li>
+				  </ul>
 			</div>
 		</nav>
 	</div>

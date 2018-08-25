@@ -3,6 +3,8 @@ package com.amFlights.util;
 public class Constants {
 	public static final String DB_CONNECTION = "DBConnection";
 	
+	public static final String SessionObject = "User";
+
 
 	//queries
 	public static final String GET_BOOKINGS_BY_FLIGHT ="SELECT " + 

@@ -32,7 +32,7 @@ import com.google.gson.JsonParser;
 /**
  * Servlet implementation class SeatServlet
  */
-@WebServlet(asyncSupported = true, name = "Seat", urlPatterns = { "/Seat" })
+@WebServlet(asyncSupported = true, name = "Seat", urlPatterns = { "/api/Seat" })
 public class SeatServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -75,7 +76,7 @@ public class AuthenticationFilter implements Filter {
 		logger.info("Requested Resource::"+uri);
 		
 		HttpSession session = req.getSession(false);
-		if(session == null && !( uri.endsWith("Login") || uri.endsWith("Register"))){
+		if(session == null && !(uri.equals("/amFlights/") || uri.matches(".*(css|jpg|png|gif|js|html)"))){
 			logger.error("Unauthorized access request");
 			res.sendError(401, "Unauthorized");
 		}else{
