@@ -4,7 +4,7 @@
     $stateProvider.state('login', {
         url: '/login',
         templateUrl: "views/login.html",
-        controller: "loginController"   
+        controller: "loginController"
     })
 
         .state('welcome', {
@@ -41,15 +41,13 @@
             templateUrl: "views/welcome.html",
             controller: "navbarController"
         })
-        
-         .state('summary', {
+
+        .state('summary', {
             url: '/summary',
             templateUrl: "views/Summary.html",
             controller: "summaryController"
         });
 
-    // catch all route
-    // send users to the form page 
     $urlRouterProvider.otherwise('welcome');
 });
 

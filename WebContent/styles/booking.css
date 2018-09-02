@@ -1,33 +1,3 @@
-/*.table tbody tr td:not(:first-child) {
-    border: 1px solid blue;
-    width: 1em;
-    height: 1em
-}
-
-.table tbody tr td:first-child {
-    font-weight: bold
-}
-
-.table tr td:nth-child(5) {
-    border: none !important
-}
-
-.table {
-    border-spacing: 3em
-}*/
-
-/*
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
-*/
-
-/*--reset--*/
-
-/* style.css */
-/* BASIC STYLINGS
-============================================================================= */
 body {
     background-image: url("../res/flight-bg.jpg"); 
     background-repeat: no-repeat;
@@ -38,10 +8,6 @@ body {
     color:white;
     overflow-x: hidden
 }
-/*md-radio-button .md-off md-radio-button.md-checked.my-class .md-off{
-    border-color: blue
-}*/
-
 
 md-radio-button .md-off {
     border-color: white
@@ -55,7 +21,6 @@ md-radio-button .md-off {
 
 
 
-/* form styling */
 #form-container {
     background: #63636350;
     margin-bottom: 20px;
@@ -70,7 +35,6 @@ md-radio-button .md-off {
         border-top-right-radius: 5px
     }
 
-/* numbered buttons */
 #status-buttons {
 }
 

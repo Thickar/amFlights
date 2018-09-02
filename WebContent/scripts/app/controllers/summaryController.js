@@ -1,26 +1,19 @@
-app.controller("summaryController", function ($scope, $rootScope,flightService,$http,$mdDialog,$state) {
-	
+app.controller("summaryController", function ($scope, $rootScope, flightService, $http, $mdDialog, $state) {
+
 	function getFlights() {
 
 		flightService.then(function (response) {
-			//First function handles success
 			$scope.flights = response.data;
 		}, function (response) {
-			//Second function handles error
 			$scope.content = "Something went wrong";
-		}); 
+		});
 	};
 
-    $scope.getBookings = function()
-    {
-        $http.get($rootScope.baseUrl+"api/Booking?flightId="+$scope.selectedFlight.flight_id).then(function (response) {
-			//First function handles success
+	$scope.getBookings = function () {
+		$http.get($rootScope.baseUrl + "api/Booking?flightId=" + $scope.selectedFlight.flight_id).then(function (response) {
 			$scope.bookings = response.data;
-
 		}, function (response) {
 			var errorMessage = 'Something went wrong';
-			//Second function handles error
-
 			$mdToast.show(
 				$mdToast.simple()
 					.textContent(errorMessage)
@@ -33,11 +26,11 @@ app.controller("summaryController", function ($scope, $rootScope,flightService,$
 			controller: DialogController,
 			templateUrl: 'views/Alerts/CancellationSuccessFull.html',
 			parent: angular.element(document.body),
-			clickOutsideToClose:false,
-			fullscreen: true // Only for -xs, -sm breakpoints.
-		  });
+			clickOutsideToClose: false,
+			fullscreen: true
+		});
 	};
-	
+
 	$scope.cancelBooking = function (bookingId) {
 
 		$http.put($rootScope.baseUrl + "api/Booking?bookingId=" + bookingId).then(function (response) {
@@ -45,7 +38,6 @@ app.controller("summaryController", function ($scope, $rootScope,flightService,$
 			showBookingSuccess();
 		}, function (response) {
 			var errorMessage = 'Something went wrong';
-
 			$mdToast.show(
 				$mdToast.simple()
 					.textContent(errorMessage)
@@ -54,23 +46,22 @@ app.controller("summaryController", function ($scope, $rootScope,flightService,$
 	};
 
 	function DialogController($scope, $mdDialog) {
-		$scope.bookAnother = function() {
-		  $mdDialog.hide();
-		  $state.go("booking.chooseFlight");
+		$scope.bookAnother = function () {
+			$mdDialog.hide();
+			$state.go("booking.chooseFlight");
 		};
-	
-		$scope.Close = function() {
-		  $mdDialog.hide();
+
+		$scope.Close = function () {
+			$mdDialog.hide();
 		};
-	
-	  };
+
+	};
 
 	function init() {
 		getFlights();
-		// $scope.booking.selectedFlight = "test";
 	};
 
-	
+
 
 	init();
 });

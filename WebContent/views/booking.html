@@ -5,8 +5,6 @@
         <div id="form-container">
             <div class="page-header text-center">
                 <h2>Happy Journey</h2>
-                <!-- the links to our nested states using relative paths -->
-                <!-- add the active class if the state matches our ui-sref -->
                 <div id="status-buttons" class="text-center">
                     <a ui-sref-active="active" ui-sref=".chooseFlight">
                         <span>1</span> flight</a>
@@ -18,9 +16,7 @@
                         <span>4</span> seat count</a>
                 </div>
             </div>
-            <!-- use ng-submit to catch the form submission and use our Angular function -->
             <form id="signup-form" ng-submit="bookTickets()" onload=".chooseFlight" ng-controller="bookingController">
-                <!-- our nested state views will be injected here -->
                 <div id="form-views" ui-view></div>
             </form>
         </div>
