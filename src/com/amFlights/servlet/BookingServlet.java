@@ -1,13 +1,6 @@
 package com.amFlights.servlet;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import javax.servlet.annotation.WebServlet;
 
 import com.google.gson.Gson;
@@ -15,23 +8,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.*;
 import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.sql.*;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,17 +21,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.amFlights.model.Booking;
-import com.amFlights.model.Flight;
 import com.amFlights.model.User;
 import com.amFlights.util.BookingUtil;
 import com.amFlights.util.Constants;
-import com.amFlights.util.FlightUtil;
 import com.amFlights.util.SeatUtil;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 
 /**
  * Servlet implementation class Booking
@@ -133,8 +107,6 @@ public class BookingServlet extends HttpServlet {
 
 			if (errorMsg != null) {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND, errorMsg);
-//			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-//			rd.include(request, response);
 			} else {
 
 				// Set response content type

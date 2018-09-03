@@ -84,8 +84,6 @@ public class LoginServlet extends HttpServlet {
 		
 		if(errorMsg != null){
 			response.sendError(HttpServletResponse.SC_NOT_FOUND,errorMsg);
-//			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-//			rd.include(request, response);
 		}else{
 		
 		Connection con = (Connection) getServletContext().getAttribute(Constants.DB_CONNECTION);

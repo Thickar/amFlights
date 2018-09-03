@@ -21,6 +21,10 @@
     <param-name>dbURL</param-name>
     <param-value>jdbc:mysql://localhost/amFlights</param-value>
   </context-param>
+  <context-param>
+    <param-name>log4j-config</param-name>
+    <param-value>WEB-INF/log4j.xml</param-value>
+  </context-param>
   <filter>
     <filter-name>AuthenticationFilter</filter-name>
     <filter-class>com.amFlights.filter.AuthenticationFilter</filter-class>
